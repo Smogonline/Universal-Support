@@ -1,0 +1,2026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Universal System Support — Digital Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #050d1a;
+    --navy2: #0a1628;
+    --navy3: #0f2040;
+    --cyan: #00d4ff;
+    --cyan2: #00aacc;
+    --cyan-glow: rgba(0,212,255,0.15);
+    --cyan-glow2: rgba(0,212,255,0.05);
+    --white: #ffffff;
+    --off-white: #e8f0f7;
+    --muted: #7a99b8;
+    --card: rgba(10,22,40,0.85);
+    --border: rgba(0,212,255,0.15);
+    --border2: rgba(0,212,255,0.08);
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--cyan2); border-radius: 3px; }
+
+  /* ANNOUNCEMENT BANNER */
+  .ann-bar {
+    background: linear-gradient(90deg, var(--navy3), #0a2a50, var(--navy3));
+    border-bottom: 1px solid var(--border);
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 15px;
+    color: var(--off-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 100;
+    animation: slideDown .6s ease;
+  }
+  .ann-bar span.badge {
+    background: var(--cyan);
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-family: var(--font-head);
+    letter-spacing: .5px;
+  }
+  .ann-bar .cta-link {
+    color: var(--cyan);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color .2s;
+  }
+  .ann-bar .cta-link:hover { border-color: var(--cyan); }
+
+  /* NAVBAR */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background: rgba(5,13,26,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    transition: background .3s;
+  }
+  .nav-logo {
+    font-family: var(--font-head);
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: 1px;
+    line-height: 1.1;
+  }
+  .nav-logo span { color: var(--cyan); }
+  .nav-logo small { display: block; font-size: 10px; font-weight: 400; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 15px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: all .2s;
+    font-family: var(--font-head);
+    font-weight: 600;
+    letter-spacing: .3px;
+  }
+  .nav-links a:hover { color: var(--cyan); background: var(--cyan-glow2); }
+  .nav-actions { display: flex; align-items: center; gap: 12px; }
+  .btn-wa {
+    background: #25D366;
+    color: #fff;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: var(--font-head);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transition: all .2s;
+    text-decoration: none;
+  }
+  .btn-wa:hover { background: #1fa854; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,211,102,.3); }
+  .cart-btn {
+    background: var(--cyan-glow);
+    border: 1px solid var(--border);
+    color: var(--cyan);
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    position: relative;
+    transition: all .2s;
+  }
+  .cart-btn:hover { background: var(--cyan-glow); border-color: var(--cyan); }
+  .cart-count {
+    position: absolute;
+    top: -6px; right: -6px;
+    background: var(--cyan);
+    color: var(--navy);
+    font-size: 10px;
+    font-weight: 800;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+  }
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 5px;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--cyan);
+    border-radius: 2px;
+    transition: all .3s;
+  }
+
+  /* MOBILE MENU */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(5,13,26,0.98);
+    backdrop-filter: blur(20px);
+    z-index: 9998;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: var(--font-head);
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: color .2s;
+  }
+  .mobile-menu a:hover { color: var(--cyan); }
+  .mobile-menu-close {
+    position: absolute;
+    top: 22px; right: 5%;
+    font-size: 30px;
+    color: var(--muted);
+    cursor: pointer;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 5% 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,212,255,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 80% 80%, rgba(0,170,204,0.05) 0%, transparent 60%),
+      linear-gradient(180deg, var(--navy) 0%, var(--navy2) 100%);
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 820px; }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--cyan-glow);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-size: 13px;
+    color: var(--cyan);
+    font-weight: 600;
+    letter-spacing: .5px;
+    margin-bottom: 28px;
+    animation: fadeUp .8s ease;
+  }
+  .hero-badge::before { content: '●'; font-size: 8px; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+  .hero h1 {
+    font-family: var(--font-head);
+    font-size: clamp(38px, 7vw, 78px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    margin-bottom: 22px;
+    animation: fadeUp .9s ease .1s both;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--cyan);
+    position: relative;
+  }
+  .hero p {
+    font-size: clamp(17px, 2.4vw, 21px);
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 560px;
+    margin: 0 auto 40px;
+    animation: fadeUp .9s ease .2s both;
+  }
+  .hero-btns {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp .9s ease .3s both;
+  }
+  .btn-primary {
+    background: var(--cyan);
+    color: var(--navy);
+    border: none;
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: var(--font-head);
+    cursor: pointer;
+    transition: all .2s;
+    text-decoration: none;
+    letter-spacing: .3px;
+  }
+  .btn-primary:hover { background: #00eeff; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,212,255,.3); }
+  .btn-outline {
+    background: transparent;
+    color: var(--cyan);
+    border: 1.5px solid var(--border);
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: var(--font-head);
+    cursor: pointer;
+    transition: all .2s;
+    text-decoration: none;
+  }
+  .btn-outline:hover { border-color: var(--cyan); background: var(--cyan-glow); }
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border2);
+    flex-wrap: wrap;
+    animation: fadeUp .9s ease .4s both;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: var(--font-head);
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--cyan);
+    display: block;
+  }
+  .stat-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  /* SECTION COMMON */
+  section { padding: 90px 5%; }
+  .section-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    font-family: var(--font-head);
+    margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: var(--font-head);
+    font-size: clamp(26px, 4.5vw, 46px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    color: var(--white);
+  }
+  .section-sub {
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 540px;
+  }
+  .section-head { margin-bottom: 52px; }
+  .section-head.center { text-align: center; }
+  .section-head.center .section-sub { margin: 0 auto; }
+
+  /* SERVICES */
+  #services { background: var(--navy2); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+  .service-card {
+    background: var(--card);
+    border: 1px solid var(--border2);
+    border-radius: 16px;
+    padding: 36px 30px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all .3s;
+    backdrop-filter: blur(10px);
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--cyan), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .3s;
+  }
+  .service-card:hover { border-color: var(--border); transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,.3); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon {
+    width: 54px; height: 54px;
+    background: var(--cyan-glow);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 22px;
+    transition: all .3s;
+  }
+  .service-card:hover .service-icon { background: var(--cyan); }
+  .service-card h3 {
+    font-family: var(--font-head);
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+  .service-card p { font-size: 15px; color: var(--muted); line-height: 1.75; margin-bottom: 22px; }
+  .service-price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 18px;
+    border-top: 1px solid var(--border2);
+  }
+  .price-tag { font-family: var(--font-head); font-size: 20px; font-weight: 800; color: var(--cyan); }
+  .price-sub { font-size: 13px; color: var(--muted); }
+  .enquire-btn {
+    background: var(--cyan-glow);
+    border: 1px solid var(--border);
+    color: var(--cyan);
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: var(--font-head);
+    cursor: pointer;
+    transition: all .2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .enquire-btn:hover { background: var(--cyan); color: var(--navy); border-color: var(--cyan); }
+
+  /* ABOUT STRIP */
+  .about-strip {
+    background: linear-gradient(135deg, var(--navy3), var(--navy2));
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 70px 5%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .about-text h2 {
+    font-family: var(--font-head);
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 18px;
+    line-height: 1.15;
+  }
+  .about-text p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 14px; }
+  .about-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .about-tag {
+    background: var(--cyan-glow);
+    border: 1px solid var(--border);
+    color: var(--cyan);
+    padding: 7px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: var(--font-head);
+  }
+  .about-visual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .about-card {
+    background: var(--card);
+    border: 1px solid var(--border2);
+    border-radius: 14px;
+    padding: 24px 20px;
+    text-align: center;
+    transition: all .3s;
+  }
+  .about-card:hover { border-color: var(--border); transform: translateY(-3px); }
+  .about-card .num {
+    font-family: var(--font-head);
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--cyan);
+  }
+  .about-card .lbl { font-size: 12px; color: var(--muted); margin-top: 5px; }
+  .about-card:first-child { grid-column: span 2; }
+  .about-card:first-child .num { font-size: 42px; }
+
+  /* FEATURES */
+  #features { background: var(--navy); }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+  }
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px 20px;
+    background: var(--card);
+    border: 1px solid var(--border2);
+    border-radius: 14px;
+    transition: all .2s;
+  }
+  .feature-item:hover { border-color: var(--border); transform: translateY(-2px); }
+  .feature-icon { font-size: 22px; flex-shrink: 0; margin-top: 3px; }
+  .feature-item h4 { font-family: var(--font-head); font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .feature-item p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+  /* PRODUCTS / PACKAGES */
+  #packages { background: var(--navy2); }
+  .packages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 8px;
+  }
+  .pkg-card {
+    background: var(--card);
+    border: 1px solid var(--border2);
+    border-radius: 20px;
+    padding: 36px 28px;
+    position: relative;
+    transition: all .3s;
+    display: flex;
+    flex-direction: column;
+  }
+  .pkg-card.featured {
+    border-color: var(--cyan);
+    background: linear-gradient(145deg, rgba(0,212,255,0.07), rgba(10,22,40,0.9));
+    box-shadow: 0 0 40px rgba(0,212,255,0.1);
+  }
+  .pkg-card:hover { transform: translateY(-5px); box-shadow: 0 24px 60px rgba(0,0,0,.4); }
+  .pkg-badge {
+    position: absolute;
+    top: -13px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--cyan);
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-family: var(--font-head);
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  .pkg-card h3 { font-family: var(--font-head); font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+  .pkg-desc { font-size: 15px; color: var(--muted); line-height: 1.65; margin-bottom: 24px; }
+  .pkg-price { font-family: var(--font-head); font-size: 36px; font-weight: 800; color: var(--cyan); margin-bottom: 4px; }
+  .pkg-price span { font-size: 16px; font-weight: 500; color: var(--muted); }
+  .pkg-per { font-size: 12px; color: var(--muted); margin-bottom: 26px; }
+  .pkg-features { list-style: none; margin-bottom: 30px; flex: 1; }
+  .pkg-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 15px;
+    color: var(--off-white);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border2);
+  }
+  .pkg-features li:last-child { border-bottom: none; }
+  .pkg-features li::before { content: '✓'; color: var(--cyan); font-weight: 800; font-size: 13px; margin-top: 1px; flex-shrink: 0; }
+
+  /* TESTIMONIALS */
+  #testimonials { background: var(--navy); }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 22px;
+  }
+  .testi-card {
+    background: var(--card);
+    border: 1px solid var(--border2);
+    border-radius: 16px;
+    padding: 28px;
+    transition: all .2s;
+  }
+  .testi-card:hover { border-color: var(--border); transform: translateY(-3px); }
+  .testi-stars { color: #fbbf24; font-size: 16px; margin-bottom: 14px; letter-spacing: 2px; }
+  .testi-text { font-size: 15px; color: var(--off-white); line-height: 1.8; margin-bottom: 20px; font-style: italic; }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan), var(--cyan2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-head);
+    font-weight: 800;
+    color: var(--navy);
+    font-size: 16px;
+  }
+  .testi-name { font-weight: 700; font-size: 15px; font-family: var(--font-head); }
+  .testi-role { font-size: 13px; color: var(--muted); }
+  .testi-verified { font-size: 12px; color: #22c55e; display: flex; align-items: center; gap: 4px; margin-top: 2px; }
+
+  /* FAQ */
+  #faq { background: var(--navy2); }
+  .faq-list { max-width: 720px; margin: 0 auto; }
+  .faq-item {
+    border: 1px solid var(--border2);
+    border-radius: 14px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: border-color .2s;
+  }
+  .faq-item.open { border-color: var(--border); }
+  .faq-q {
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-family: var(--font-head);
+    font-size: 16px;
+    font-weight: 600;
+    gap: 16px;
+    transition: background .2s;
+  }
+  .faq-item.open .faq-q { background: rgba(0,212,255,0.04); }
+  .faq-q .icon {
+    width: 28px; height: 28px;
+    background: var(--cyan-glow);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: var(--cyan);
+    flex-shrink: 0;
+    transition: all .3s;
+  }
+  .faq-item.open .faq-q .icon { background: var(--cyan); color: var(--navy); transform: rotate(45deg); }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .35s ease, padding .3s;
+    padding: 0 24px;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .faq-item.open .faq-a { max-height: 300px; padding: 0 24px 20px; }
+
+  /* CONTACT */
+  #contact { background: var(--navy); }
+  .contact-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .contact-info h2 { font-family: var(--font-head); font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; }
+  .contact-info p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 32px; }
+  .contact-items { display: flex; flex-direction: column; gap: 16px; }
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 18px;
+    background: var(--card);
+    border: 1px solid var(--border2);
+    border-radius: 12px;
+    transition: all .2s;
+  }
+  .contact-item:hover { border-color: var(--border); }
+  .contact-item-icon {
+    width: 40px; height: 40px;
+    background: var(--cyan-glow);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .contact-item-text { font-size: 15px; color: var(--muted); }
+  .contact-item-text strong { display: block; font-family: var(--font-head); font-size: 15px; color: var(--white); margin-bottom: 3px; }
+  .contact-wa-big {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(37,211,102,0.08);
+    border: 1.5px solid rgba(37,211,102,.3);
+    border-radius: 14px;
+    padding: 20px 22px;
+    color: #4ade80;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: var(--font-head);
+    font-size: 16px;
+    margin-top: 24px;
+    transition: all .2s;
+  }
+  .contact-wa-big:hover { background: rgba(37,211,102,0.15); border-color: #4ade80; transform: translateY(-2px); }
+  .contact-wa-big .wa-sub { font-size: 12px; font-weight: 400; color: rgba(74,222,128,.7); font-family: var(--font-body); }
+
+  /* FORM */
+  .contact-form {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px 36px;
+  }
+  .contact-form h3 {
+    font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .contact-form p { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    font-family: var(--font-head);
+    letter-spacing: .5px;
+    margin-bottom: 7px;
+    text-transform: uppercase;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: rgba(5,13,26,0.8);
+    border: 1.5px solid var(--border2);
+    border-radius: 10px;
+    padding: 13px 16px;
+    color: var(--white);
+    font-size: 15px;
+    font-family: var(--font-body);
+    outline: none;
+    transition: border-color .2s;
+    resize: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--cyan); }
+  .form-group select option { background: var(--navy2); }
+  .form-group textarea { min-height: 100px; }
+  .form-submit {
+    width: 100%;
+    background: var(--cyan);
+    color: var(--navy);
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: var(--font-head);
+    cursor: pointer;
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .form-submit:hover { background: #00eeff; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,212,255,.3); }
+
+  /* CART SIDEBAR */
+  .cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.6);
+    backdrop-filter: blur(6px);
+    z-index: 9990;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s;
+  }
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+  .cart-sidebar {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: 380px;
+    background: var(--navy2);
+    border-left: 1px solid var(--border);
+    z-index: 9995;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform .35s cubic-bezier(.4,0,.2,1);
+  }
+  .cart-sidebar.open { transform: translateX(0); }
+  .cart-header {
+    padding: 24px 24px 20px;
+    border-bottom: 1px solid var(--border2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cart-header h3 { font-family: var(--font-head); font-size: 18px; font-weight: 800; }
+  .cart-close {
+    width: 36px; height: 36px;
+    background: var(--cyan-glow);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 16px; color: var(--muted);
+    transition: all .2s;
+  }
+  .cart-close:hover { color: var(--white); border-color: var(--cyan); }
+  .cart-body { flex: 1; overflow-y: auto; padding: 20px 24px; }
+  .cart-empty { text-align: center; padding: 60px 20px; color: var(--muted); }
+  .cart-empty .icon { font-size: 48px; margin-bottom: 16px; opacity: .4; }
+  .cart-empty p { font-size: 14px; }
+  .cart-item {
+    display: flex;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border2);
+    align-items: flex-start;
+  }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-family: var(--font-head); font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .cart-item-price { font-size: 13px; color: var(--cyan); font-weight: 600; margin-bottom: 10px; }
+  .cart-item-qty {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .qty-btn {
+    width: 28px; height: 28px;
+    background: var(--cyan-glow);
+    border: 1px solid var(--border);
+    color: var(--cyan);
+    border-radius: 6px;
+    font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .qty-btn:hover { background: var(--cyan); color: var(--navy); }
+  .qty-num { font-family: var(--font-head); font-weight: 700; font-size: 15px; min-width: 20px; text-align: center; }
+  .cart-remove { color: var(--muted); cursor: pointer; font-size: 18px; transition: color .2s; padding: 4px; }
+  .cart-remove:hover { color: #f87171; }
+  .cart-footer { padding: 20px 24px; border-top: 1px solid var(--border2); }
+  .cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .cart-total span:first-child { font-family: var(--font-head); font-size: 14px; color: var(--muted); }
+  .cart-total span:last-child { font-family: var(--font-head); font-size: 24px; font-weight: 800; color: var(--cyan); }
+  .checkout-btn {
+    width: 100%;
+    background: var(--cyan);
+    color: var(--navy);
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: var(--font-head);
+    cursor: pointer;
+    transition: all .2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin-bottom: 10px;
+  }
+  .checkout-btn:hover { background: #00eeff; }
+  .checkout-wa-btn {
+    width: 100%;
+    background: rgba(37,211,102,0.1);
+    color: #4ade80;
+    border: 1.5px solid rgba(37,211,102,.3);
+    padding: 13px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: var(--font-head);
+    cursor: pointer;
+    transition: all .2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .checkout-wa-btn:hover { background: rgba(37,211,102,0.2); border-color: #4ade80; }
+
+  /* AI CHAT */
+  .ai-chat-btn {
+    position: fixed;
+    bottom: 90px; right: 28px;
+    width: 58px; height: 58px;
+    background: linear-gradient(135deg, var(--cyan), var(--cyan2));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    z-index: 9980;
+    box-shadow: 0 8px 30px rgba(0,212,255,.4);
+    font-size: 24px;
+    transition: all .3s;
+    border: none;
+  }
+  .ai-chat-btn:hover { transform: scale(1.1); box-shadow: 0 12px 40px rgba(0,212,255,.5); }
+  .ai-chat-bubble {
+    position: fixed;
+    bottom: 160px; right: 28px;
+    width: 360px;
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    z-index: 9980;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    overflow: hidden;
+  }
+  .ai-chat-bubble.open { display: flex; }
+  .ai-chat-head {
+    background: linear-gradient(135deg, var(--navy3), var(--navy2));
+    border-bottom: 1px solid var(--border);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .ai-avatar {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, var(--cyan), var(--cyan2));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .ai-chat-head-info { flex: 1; }
+  .ai-chat-head-info strong { display: block; font-family: var(--font-head); font-size: 14px; }
+  .ai-chat-head-info small { font-size: 11px; color: #4ade80; }
+  .ai-close-btn { color: var(--muted); cursor: pointer; font-size: 20px; transition: color .2s; background: none; border: none; }
+  .ai-close-btn:hover { color: var(--white); }
+  .ai-chat-msgs {
+    height: 260px;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scroll-behavior: smooth;
+  }
+  .msg {
+    max-width: 82%;
+    padding: 11px 15px;
+    border-radius: 14px;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .msg.bot {
+    background: rgba(0,212,255,0.08);
+    border: 1px solid var(--border2);
+    border-radius: 4px 14px 14px 14px;
+    color: var(--off-white);
+    align-self: flex-start;
+  }
+  .msg.user {
+    background: var(--cyan);
+    color: var(--navy);
+    font-weight: 600;
+    border-radius: 14px 4px 14px 14px;
+    align-self: flex-end;
+  }
+  .msg.typing { align-self: flex-start; }
+  .dots { display: flex; gap: 4px; padding: 4px 0; }
+  .dots span {
+    width: 7px; height: 7px;
+    background: var(--cyan);
+    border-radius: 50%;
+    animation: bounce .8s infinite;
+  }
+  .dots span:nth-child(2) { animation-delay: .15s; }
+  .dots span:nth-child(3) { animation-delay: .3s; }
+  @keyframes bounce { 0%,80%,100% { transform: translateY(0); } 40% { transform: translateY(-8px); } }
+  .ai-chat-input {
+    border-top: 1px solid var(--border2);
+    padding: 14px 16px;
+    display: flex;
+    gap: 10px;
+  }
+  .ai-chat-input input {
+    flex: 1;
+    background: rgba(5,13,26,.8);
+    border: 1.5px solid var(--border2);
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: var(--white);
+    font-size: 14px;
+    font-family: var(--font-body);
+    outline: none;
+    transition: border-color .2s;
+  }
+  .ai-chat-input input:focus { border-color: var(--cyan); }
+  .ai-send-btn {
+    background: var(--cyan);
+    color: var(--navy);
+    border: none;
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .2s;
+  }
+  .ai-send-btn:hover { background: #00eeff; }
+  .ai-quick-btns {
+    padding: 0 16px 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .ai-quick-btn {
+    background: var(--cyan-glow2);
+    border: 1px solid var(--border2);
+    color: var(--cyan);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s;
+    font-family: var(--font-head);
+  }
+  .ai-quick-btn:hover { background: var(--cyan-glow); border-color: var(--cyan); }
+
+  /* ENQUIRY MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.7);
+    backdrop-filter: blur(8px);
+    z-index: 9990;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px 36px;
+    width: 100%;
+    max-width: 480px;
+    animation: scaleIn .3s ease;
+  }
+  @keyframes scaleIn { from { transform: scale(.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .modal h3 { font-family: var(--font-head); font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+  .modal p { font-size: 14px; color: var(--muted); margin-bottom: 26px; }
+  .modal-close {
+    position: absolute; top: 20px; right: 20px;
+    color: var(--muted); cursor: pointer; font-size: 22px; background: none; border: none;
+  }
+  .modal { position: relative; }
+
+  /* NEWSLETTER */
+  .newsletter {
+    background: linear-gradient(135deg, var(--navy3), var(--navy2));
+    border-top: 1px solid var(--border);
+    padding: 70px 5%;
+    text-align: center;
+  }
+  .newsletter h2 { font-family: var(--font-head); font-size: 32px; font-weight: 800; margin-bottom: 10px; }
+  .newsletter p { font-size: 15px; color: var(--muted); margin-bottom: 30px; }
+  .newsletter-form { display: flex; gap: 12px; max-width: 460px; margin: 0 auto; }
+  .newsletter-form input {
+    flex: 1;
+    background: rgba(5,13,26,.8);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 13px 18px;
+    color: var(--white);
+    font-size: 14px;
+    font-family: var(--font-body);
+    outline: none;
+    transition: border-color .2s;
+  }
+  .newsletter-form input:focus { border-color: var(--cyan); }
+  .newsletter-form button {
+    background: var(--cyan);
+    color: var(--navy);
+    border: none;
+    padding: 13px 24px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-family: var(--font-head);
+    cursor: pointer;
+    font-size: 14px;
+    transition: all .2s;
+    white-space: nowrap;
+  }
+  .newsletter-form button:hover { background: #00eeff; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    border-top: 1px solid var(--border2);
+    padding: 60px 5% 30px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border2);
+    margin-bottom: 30px;
+  }
+  .footer-brand .logo { font-family: var(--font-head); font-size: 20px; font-weight: 800; margin-bottom: 14px; color: var(--white); }
+  .footer-brand .logo span { color: var(--cyan); }
+  .footer-brand p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 20px; }
+  .footer-socials { display: flex; gap: 10px; }
+  .social-btn {
+    width: 38px; height: 38px;
+    background: var(--cyan-glow);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all .2s;
+    text-decoration: none;
+    color: var(--muted);
+  }
+  .social-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+  .footer-col h4 { font-family: var(--font-head); font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan); margin-bottom: 20px; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 11px; }
+  .footer-col ul li a { font-size: 15px; color: var(--muted); text-decoration: none; transition: color .2s; }
+  .footer-col ul li a:hover { color: var(--white); }
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .footer-bottom a { color: var(--muted); text-decoration: none; transition: color .2s; }
+  .footer-bottom a:hover { color: var(--cyan); }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 100px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transition: all .3s;
+    z-index: 99999;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.success { border-color: #22c55e; color: #4ade80; }
+  .toast.info { border-color: var(--cyan); color: var(--cyan); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-100%); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .btn-wa.nav-wa { display: none; }
+    .about-strip { grid-template-columns: 1fr; }
+    .contact-wrap { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    section { padding: 60px 5%; }
+    .hero { min-height: 80vh; padding: 60px 5% 40px; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .cart-sidebar { width: 100%; }
+    .newsletter-form { flex-direction: column; }
+    .hero-stats { gap: 24px; }
+    .contact-form { padding: 28px 22px; }
+    .modal { padding: 30px 22px; }
+    .ai-chat-bubble { width: calc(100vw - 32px); right: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BANNER -->
+<div class="ann-bar">
+  <span class="badge">🚀 NOW LIVE</span>
+  Get your business automated — Free consultation for new clients!
+  <a href="#contact" class="cta-link">Book a free call →</a>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-logo">
+    UNIVERSAL<span>.</span>
+    <small>SYSTEM SUPPORT</small>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#packages">Packages</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="https://wa.me/2349033355536?text=Hi%20Universal%20System%20Support%2C%20I%20want%20to%20enquire%20about%20your%20services" class="btn-wa nav-wa" target="_blank">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Chat on WhatsApp
+    </a>
+    <div class="cart-btn" onclick="toggleCart()">
+      🛒
+      <div class="cart-count" id="cartCount">0</div>
+    </div>
+    <div class="hamburger" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mobile-menu-close" onclick="toggleMobileMenu()">✕</span>
+  <a href="#services" onclick="toggleMobileMenu()">Services</a>
+  <a href="#packages" onclick="toggleMobileMenu()">Packages</a>
+  <a href="#about" onclick="toggleMobileMenu()">About</a>
+  <a href="#testimonials" onclick="toggleMobileMenu()">Reviews</a>
+  <a href="#faq" onclick="toggleMobileMenu()">FAQ</a>
+  <a href="#contact" onclick="toggleMobileMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Available for Projects · Digital Solutions Expert</div>
+    <h1>Digital Strategy,<br/>Automation &<br/><em>No-Code Power.</em></h1>
+    <p style="font-size:clamp(13px,2vw,16px);color:var(--cyan);font-family:var(--font-head);font-weight:600;letter-spacing:.5px;margin-bottom:18px;opacity:.85;">For solopreneurs, startups & growing businesses</p>
+    <p>Empowering entrepreneurs and businesses with smart digital systems — from business analysis to fully automated workflows, all without a single line of code.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#contact" class="btn-outline">Book Consultation</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">150+</span><div class="stat-label">Projects Delivered</div></div>
+      <div class="stat"><span class="stat-num">98%</span><div class="stat-label">Client Satisfaction</div></div>
+      <div class="stat"><span class="stat-num">5+</span><div class="stat-label">Years Experience</div></div>
+      <div class="stat"><span class="stat-num">30+</span><div class="stat-label">Tools Mastered</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-head">
+    <div class="section-tag">What I Do</div>
+    <h2 class="section-title">Core Services</h2>
+    <p class="section-sub">Comprehensive digital solutions tailored for entrepreneurs, startups, and growing businesses.</p>
+  </div>
+  <div class="services-grid" id="servicesGrid">
+    <!-- Cards injected by JS -->
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div class="about-strip reveal" id="about">
+  <div class="about-text">
+    <div class="section-tag">About Me</div>
+    <h2>Digital Entrepreneur.<br/>Business Analyst.<br/><span style="color:var(--cyan)">No-Code Builder.</span></h2>
+    <p>I help businesses transform their digital presence and internal operations using the latest no-code tools and strategic business analysis frameworks. No complex tech required — just smart systems.</p>
+    <p>With deep expertise in process automation, digital product creation, and business intelligence, I bridge the gap between your business goals and technology execution.</p>
+    <p style="color:var(--off-white);font-style:italic;border-left:3px solid var(--cyan);padding-left:16px;margin-top:8px;">Universal System Support is an evolving digital‑entrepreneurship and business‑consulting firm that drives visibility, sales growth, and customer retention, helping companies scale quickly in today's fast‑moving digital market.</p>
+    <div class="about-tags">
+      <span class="about-tag">Notion</span>
+      <span class="about-tag">Zapier</span>
+      <span class="about-tag">Airtable</span>
+      <span class="about-tag">Webflow</span>
+      <span class="about-tag">Make.com</span>
+      <span class="about-tag">Bubble</span>
+      <span class="about-tag">Power BI</span>
+      <span class="about-tag">Glide</span>
+    </div>
+  </div>
+  <div class="about-visual">
+    <div class="about-card">
+      <div class="num">150+</div>
+      <div class="lbl">Happy Clients & Projects</div>
+    </div>
+    <div class="about-card">
+      <div class="num">5+</div>
+      <div class="lbl">Years in Digital Space</div>
+    </div>
+    <div class="about-card">
+      <div class="num">30+</div>
+      <div class="lbl">No-Code Tools</div>
+    </div>
+    <div class="about-card">
+      <div class="num">98%</div>
+      <div class="lbl">Satisfaction Rate</div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-head center reveal">
+    <div class="section-tag">Why Choose Me</div>
+    <h2 class="section-title">The USS Advantage</h2>
+    <p class="section-sub">Smart, fast, and tailored digital solutions that actually work for your business.</p>
+  </div>
+  <div class="features-grid reveal">
+    <div class="feature-item"><div class="feature-icon">⚡</div><div><h4>Fast Turnaround</h4><p>Most projects delivered within agreed timelines — no endless delays.</p></div></div>
+    <div class="feature-item"><div class="feature-icon">🔧</div><div><h4>No-Code First</h4><p>Modern tools that save costs without sacrificing quality or power.</p></div></div>
+    <div class="feature-item"><div class="feature-icon">📊</div><div><h4>Data-Driven Decisions</h4><p>Every solution backed by proper business analysis and strategy.</p></div></div>
+    <div class="feature-item"><div class="feature-icon">🔄</div><div><h4>Full Automation</h4><p>Set up once, run forever — workflows that work while you sleep.</p></div></div>
+    <div class="feature-item"><div class="feature-icon">💬</div><div><h4>WhatsApp Support</h4><p>Direct access via WhatsApp for quick communication on your projects.</p></div></div>
+    <div class="feature-item"><div class="feature-icon">🎯</div><div><h4>Result-Focused</h4><p>Clear deliverables, measurable outcomes, and real business impact.</p></div></div>
+    <div class="feature-item"><div class="feature-icon">🔒</div><div><h4>Confidential & Secure</h4><p>Your business data and strategies are handled with full discretion.</p></div></div>
+    <div class="feature-item"><div class="feature-icon">♾️</div><div><h4>Ongoing Support</h4><p>I don't disappear after delivery — post-project support always available.</p></div></div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section id="packages">
+  <div class="section-head center reveal">
+    <div class="section-tag">Pricing</div>
+    <h2 class="section-title">Service Packages</h2>
+    <p class="section-sub">Transparent pricing for every business stage — add to cart or enquire directly.</p>
+  </div>
+  <div class="packages-grid" id="packagesGrid">
+    <!-- Injected by JS -->
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-head center reveal">
+    <div class="section-tag">Social Proof</div>
+    <h2 class="section-title">What Clients Say</h2>
+    <p class="section-sub">Real feedback from real clients across Nigeria and beyond.</p>
+  </div>
+  <div class="testimonials-grid reveal" id="testiGrid"></div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-head center reveal">
+    <div class="section-tag">Common Questions</div>
+    <h2 class="section-title">FAQ</h2>
+  </div>
+  <div class="faq-list" id="faqList"></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="contact-info reveal">
+      <div class="section-tag">Get in Touch</div>
+      <h2>Let's Build Something Great</h2>
+      <p>Ready to automate your business, get a digital strategy, or launch your no-code product? Let's talk — reach out via the form or WhatsApp directly.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-item-icon">📱</div>
+          <div class="contact-item-text">
+            <strong>WhatsApp / Phone</strong>
+            +234 903 335 5536
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🌍</div>
+          <div class="contact-item-text">
+            <strong>Location</strong>
+            Nigeria · Remote Worldwide
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">⏰</div>
+          <div class="contact-item-text">
+            <strong>Response Time</strong>
+            Usually within 2 hours
+          </div>
+        </div>
+      </div>
+      <a href="https://wa.me/2349033355536?text=Hi%2C%20I%20found%20your%20website%20and%20want%20to%20discuss%20a%20project" class="contact-wa-big" target="_blank">
+        <svg width="26" height="26" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <div>
+          <div>Chat on WhatsApp Now</div>
+          <div class="wa-sub">Fastest way to reach me</div>
+        </div>
+      </a>
+    </div>
+    <div class="contact-form reveal">
+      <h3>Send an Enquiry</h3>
+      <p>Fill out the form and I'll get back to you within 2 hours.</p>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="cName" placeholder="Your name"/>
+        </div>
+        <div class="form-group">
+          <label>Phone / WhatsApp</label>
+          <input type="text" id="cPhone" placeholder="+234..."/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="cEmail" placeholder="your@email.com"/>
+      </div>
+      <div class="form-group">
+        <label>Service Interested In</label>
+        <select id="cService">
+          <option value="">— Select a service —</option>
+          <option>Business Analysis & Strategy</option>
+          <option>No-Code App Development</option>
+          <option>Process Automation</option>
+          <option>Digital Product Creation</option>
+          <option>CRM & Database Setup</option>
+          <option>Website / Landing Page</option>
+          <option>Custom Package</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Your Message</label>
+        <textarea id="cMsg" placeholder="Tell me about your project or challenge..."></textarea>
+      </div>
+      <button class="form-submit" onclick="submitEnquiry()">
+        Send via WhatsApp 
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter reveal">
+  <div class="section-tag" style="display:inline-block;margin-bottom:12px;">Stay Updated</div>
+  <h2>Get Digital Tips & Updates</h2>
+  <p>Subscribe for free no-code tutorials, business automation tips, and exclusive offers.</p>
+  <div class="newsletter-form">
+    <input type="email" id="nlEmail" placeholder="Enter your email address"/>
+    <button onclick="subscribeNewsletter()">Subscribe →</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">UNIVERSAL<span>.</span> <small style="font-size:11px;letter-spacing:2px;color:var(--muted);font-weight:400;">SYSTEM SUPPORT</small></div>
+      <p>Digital entrepreneurship, business analysis and no-code development services. Helping businesses grow smarter, not harder.</p>
+      <div class="footer-socials">
+        <a href="https://wa.me/2349033355536" class="social-btn" target="_blank" title="WhatsApp">
+          <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/oluwasegun-adeyemo-978332287" class="social-btn" target="_blank" title="LinkedIn">
+          <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://x.com/smogonline" class="social-btn" target="_blank" title="X / Twitter">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Business Analysis</a></li>
+        <li><a href="#services">No-Code Development</a></li>
+        <li><a href="#services">Process Automation</a></li>
+        <li><a href="#services">Digital Products</a></li>
+        <li><a href="#services">CRM Setup</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#packages">Packages</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="https://wa.me/2349033355536" target="_blank">+234 903 335 5536</a></li>
+        <li><a href="#contact">Send Enquiry</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Universal System Support. All rights reserved.</span>
+    <span>Designed for Digital Excellence 🚀</span>
+  </div>
+</footer>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3>🛒 Your Cart</h3>
+    <div class="cart-close" onclick="toggleCart()">✕</div>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty">
+      <div class="icon">🛒</div>
+      <p>Your cart is empty.<br/>Add a service package to get started.</p>
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">₦0</span>
+    </div>
+    <button class="checkout-btn" onclick="checkoutWhatsApp()">
+      <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Order via WhatsApp
+    </button>
+    <button class="checkout-wa-btn" onclick="clearCart()">Clear Cart</button>
+  </div>
+</div>
+
+<!-- ENQUIRY MODAL -->
+<div class="modal-overlay" id="enquiryModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3>Enquire About This Service</h3>
+    <p id="modalServiceName">Get more information or book this service via WhatsApp.</p>
+    <div class="form-group">
+      <label>Your Name</label>
+      <input type="text" id="mName" placeholder="Your full name"/>
+    </div>
+    <div class="form-group">
+      <label>WhatsApp Number</label>
+      <input type="text" id="mPhone" placeholder="+234..."/>
+    </div>
+    <div class="form-group">
+      <label>Your Message</label>
+      <textarea id="mMsg" placeholder="Tell me more about what you need..." style="min-height:80px"></textarea>
+    </div>
+    <button class="form-submit" onclick="submitModal()">
+      Send Enquiry on WhatsApp
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- AI CHAT -->
+<button class="ai-chat-btn" onclick="toggleChat()" title="AI Support">🤖</button>
+<div class="ai-chat-bubble" id="chatBubble">
+  <div class="ai-chat-head">
+    <div class="ai-avatar">🤖</div>
+    <div class="ai-chat-head-info">
+      <strong>USS AI Assistant</strong>
+      <small>● Online — Powered by AI</small>
+    </div>
+    <button class="ai-close-btn" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="ai-chat-msgs" id="chatMsgs"></div>
+  <div class="ai-quick-btns" id="quickBtns">
+    <button class="ai-quick-btn" onclick="quickAsk('What services do you offer?')">Services</button>
+    <button class="ai-quick-btn" onclick="quickAsk('How much do your packages cost?')">Pricing</button>
+    <button class="ai-quick-btn" onclick="quickAsk('How do I get started?')">Get Started</button>
+    <button class="ai-quick-btn" onclick="quickAsk('How can I contact you?')">Contact</button>
+  </div>
+  <div class="ai-chat-input">
+    <input type="text" id="chatInput" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter')sendChat()"/>
+    <button class="ai-send-btn" onclick="sendChat()">➤</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+const SERVICES = [
+  { id: 1, icon: '📊', title: 'Business Analysis & Strategy', desc: 'Deep-dive analysis of your business processes, identifying gaps and mapping out a digital transformation roadmap tailored to your goals.', price: '₦50,000', sub: 'Starting from' },
+  { id: 2, icon: '🏗️', title: 'No-Code App Development', desc: 'Custom web and mobile applications built using top no-code platforms like Bubble, Glide, and Webflow — at a fraction of traditional dev costs.', price: '₦80,000', sub: 'Starting from' },
+  { id: 3, icon: '⚙️', title: 'Process Automation', desc: 'Automate repetitive tasks and workflows using Zapier, Make.com, and other tools — saving hours every week and eliminating human error.', price: '₦40,000', sub: 'Starting from' },
+  { id: 4, icon: '📦', title: 'Digital Product Creation', desc: 'From notion templates to info-products and e-books — I help you package your expertise into sellable digital products.', price: '₦35,000', sub: 'Starting from' },
+  { id: 5, icon: '🗃️', title: 'CRM & Database Setup', desc: 'Build powerful CRM systems and business databases using Airtable, Notion, or custom no-code solutions to manage clients and operations.', price: '₦45,000', sub: 'Starting from' },
+  { id: 6, icon: '🌐', title: 'Website / Landing Page', desc: 'High-converting, professional websites and landing pages built for service providers, entrepreneurs, and digital businesses.', price: '₦60,000', sub: 'Starting from' },
+];
+
+const PACKAGES = [
+  { id: 'p1', title: 'Starter', desc: 'Perfect for individuals and new businesses.', price: 75000, features: ['Business needs assessment', '1 automation setup', '1 digital product template', 'Basic CRM setup', 'WhatsApp support (30 days)', 'Training session (1hr)'], featured: false },
+  { id: 'p2', title: 'Growth', desc: 'For businesses ready to scale with smart systems.', price: 180000, features: ['Full business analysis report', '3 automation workflows', 'No-code app (MVP)', 'Custom CRM + database', 'Landing page', 'WhatsApp support (60 days)', '2 training sessions', 'Monthly strategy call'], featured: true },
+  { id: 'p3', title: 'Enterprise', desc: 'Full-scale digital transformation package.', price: 350000, features: ['Complete digital strategy', 'Unlimited automations', 'Full web app development', 'Advanced CRM system', 'Up to 3 landing pages', 'Digital product suite', 'Priority support (90 days)', 'Weekly strategy calls', 'Team training included'], featured: false },
+];
+
+const TESTIMONIALS = [
+  { name: 'Taiwo Adebisi', role: 'E-commerce Owner, Lagos', init: 'TA', review: 'He automated my entire order and inventory process. What used to take 3 hours daily now runs by itself. Absolutely worth every kobo.', stars: 5 },
+  { name: 'Chiamaka Eze', role: 'Consultant, Abuja', init: 'CE', review: 'The business analysis report he delivered was eye-opening. Clear, actionable insights I could implement immediately. Professional and thorough.', stars: 5 },
+  { name: 'Bola Afolabi', role: 'Startup Founder, Ibadan', init: 'BA', review: 'Built my MVP app on Bubble within 2 weeks. The quality surprised me — it looked like a fully coded product. Clients love it!', stars: 5 },
+  { name: 'Emeka Okonkwo', role: 'Digital Marketer, PH', init: 'EO', review: 'Set up my Notion-based CRM and it changed how I manage clients. Super organized now and the WhatsApp integration is genius.', stars: 5 },
+  { name: 'Funmi Olatunji', role: 'Course Creator, Lagos', init: 'FO', review: 'He helped me package my knowledge into digital products and set up the entire funnel. Made sales in my first week!', stars: 5 },
+  { name: 'Segun Martins', role: 'SME Owner, Kano', init: 'SM', review: 'The Growth package was exactly what my business needed. ROI within the first month. Communication was excellent throughout.', stars: 5 },
+];
+
+const FAQS = [
+  { q: 'What is no-code development?', a: 'No-code development uses visual platforms like Bubble, Webflow, Glide, and Airtable to build fully functional apps and systems without writing traditional code. It\'s faster, cheaper, and easier to maintain.' },
+  { q: 'How long does a typical project take?', a: 'Simple automations or CRM setups: 3–7 days. No-code apps and websites: 1–3 weeks. Full packages: 2–6 weeks depending on complexity and your response time.' },
+  { q: 'Do I need technical knowledge to work with you?', a: 'Not at all! I handle all the technical work. I communicate in plain business language and provide training so you can manage everything after delivery.' },
+  { q: 'How do we communicate during the project?', a: 'Primarily via WhatsApp for quick updates, and scheduled video calls for major discussions and reviews. You\'ll never feel left in the dark.' },
+  { q: 'What if I need changes after delivery?', a: 'All packages include a support period after delivery for revisions and tweaks. Any additional changes beyond that are billed at agreed rates.' },
+  { q: 'Can I pay in instalments?', a: 'Yes! I offer a 50% deposit to start and 50% upon delivery for most packages. Flexible arrangements can be discussed for larger projects.' },
+];
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderServices();
+  renderPackages();
+  renderTestimonials();
+  renderFAQ();
+  initChat();
+  initReveal();
+});
+
+function renderServices() {
+  const grid = document.getElementById('servicesGrid');
+  grid.innerHTML = SERVICES.map(s => `
+    <div class="service-card reveal">
+      <div class="service-icon">${s.icon}</div>
+      <h3>${s.title}</h3>
+      <p>${s.desc}</p>
+      <div class="service-price">
+        <div>
+          <div class="price-tag">${s.price}</div>
+          <div class="price-sub">${s.sub}</div>
+        </div>
+        <a href="#" class="enquire-btn" onclick="openEnquiryModal('${s.title}');return false;">Enquire →</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderPackages() {
+  const grid = document.getElementById('packagesGrid');
+  grid.innerHTML = PACKAGES.map(p => `
+    <div class="pkg-card ${p.featured ? 'featured' : ''} reveal">
+      ${p.featured ? '<div class="pkg-badge">⭐ MOST POPULAR</div>' : ''}
+      <h3>${p.title}</h3>
+      <p class="pkg-desc">${p.desc}</p>
+      <div class="pkg-price">₦${p.price.toLocaleString()}<span></span></div>
+      <div class="pkg-per">one-time payment</div>
+      <ul class="pkg-features">
+        ${p.features.map(f => `<li>${f}</li>`).join('')}
+      </ul>
+      <div style="display:flex;gap:10px;flex-direction:column">
+        <button class="btn-primary" onclick="addToCart('${p.id}','${p.title}',${p.price})" style="width:100%;text-align:center">Add to Cart</button>
+        <a href="#" class="enquire-btn" style="justify-content:center" onclick="openEnquiryModal('${p.title} Package');return false;">Enquire on WhatsApp</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderTestimonials() {
+  const grid = document.getElementById('testiGrid');
+  grid.innerHTML = TESTIMONIALS.map(t => `
+    <div class="testi-card reveal">
+      <div class="testi-stars">${'★'.repeat(t.stars)}</div>
+      <p class="testi-text">"${t.review}"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">${t.init}</div>
+        <div>
+          <div class="testi-name">${t.name}</div>
+          <div class="testi-role">${t.role}</div>
+          <div class="testi-verified">✔ Verified Client</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderFAQ() {
+  const list = document.getElementById('faqList');
+  list.innerHTML = FAQS.map((f, i) => `
+    <div class="faq-item" id="faq${i}">
+      <div class="faq-q" onclick="toggleFAQ(${i})">
+        <span>${f.q}</span>
+        <span class="icon">+</span>
+      </div>
+      <div class="faq-a">${f.a}</div>
+    </div>
+  `).join('');
+}
+
+function toggleFAQ(i) {
+  document.querySelectorAll('.faq-item').forEach((el, j) => {
+    if (i === j) el.classList.toggle('open');
+    else el.classList.remove('open');
+  });
+}
+
+// ─── CART ────────────────────────────────────────────────────────────────────
+let cart = [];
+function addToCart(id, name, price) {
+  const existing = cart.find(i => i.id === id);
+  if (existing) { existing.qty++; } else { cart.push({ id, name, price, qty: 1 }); }
+  renderCart(); updateCartCount(); toggleCart(); showToast(`✅ "${name}" added to cart`, 'success');
+}
+function removeFromCart(id) {
+  cart = cart.filter(i => i.id !== id);
+  renderCart(); updateCartCount();
+}
+function changeQty(id, delta) {
+  const item = cart.find(i => i.id === id);
+  if (item) { item.qty = Math.max(1, item.qty + delta); renderCart(); updateCartCount(); }
+}
+function clearCart() { cart = []; renderCart(); updateCartCount(); showToast('Cart cleared', 'info'); }
+function updateCartCount() {
+  const total = cart.reduce((s, i) => s + i.qty, 0);
+  const el = document.getElementById('cartCount');
+  el.textContent = total;
+  el.style.display = total > 0 ? 'flex' : 'none';
+}
+function renderCart() {
+  const body = document.getElementById('cartBody');
+  const footer = document.getElementById('cartFooter');
+  if (!cart.length) {
+    body.innerHTML = '<div class="cart-empty"><div class="icon">🛒</div><p>Your cart is empty.<br/>Add a service package to get started.</p></div>';
+    footer.style.display = 'none';
+    return;
+  }
+  footer.style.display = 'block';
+  body.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-price">₦${(item.price * item.qty).toLocaleString()}</div>
+        <div class="cart-item-qty">
+          <div class="qty-btn" onclick="changeQty('${item.id}',-1)">−</div>
+          <div class="qty-num">${item.qty}</div>
+          <div class="qty-btn" onclick="changeQty('${item.id}',1)">+</div>
+        </div>
+      </div>
+      <div class="cart-remove" onclick="removeFromCart('${item.id}')">🗑</div>
+    </div>
+  `).join('');
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  document.getElementById('cartTotal').textContent = `₦${total.toLocaleString()}`;
+}
+function toggleCart() {
+  document.getElementById('cartSidebar').classList.toggle('open');
+  document.getElementById('cartOverlay').classList.toggle('open');
+}
+function checkoutWhatsApp() {
+  const lines = cart.map(i => `• ${i.name} x${i.qty} = ₦${(i.price*i.qty).toLocaleString()}`).join('%0A');
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const msg = `Hello Universal System Support!%0A%0AI'd like to order the following:%0A${lines}%0A%0ATotal: ₦${total.toLocaleString()}%0A%0APlease confirm availability and payment details.`;
+  window.open(`https://wa.me/2349033355536?text=${msg}`, '_blank');
+}
+
+// ─── ENQUIRY MODAL ────────────────────────────────────────────────────────────
+let currentService = '';
+function openEnquiryModal(svc) {
+  currentService = svc;
+  document.getElementById('modalServiceName').textContent = `Enquiring about: ${svc}`;
+  document.getElementById('enquiryModal').classList.add('open');
+}
+function closeModal() { document.getElementById('enquiryModal').classList.remove('open'); }
+function submitModal() {
+  const name = document.getElementById('mName').value.trim();
+  const phone = document.getElementById('mPhone').value.trim();
+  const msg = document.getElementById('mMsg').value.trim();
+  const text = `Hello Universal System Support!%0A%0AService Enquiry: ${encodeURIComponent(currentService)}%0AName: ${encodeURIComponent(name||'Not provided')}%0APhone: ${encodeURIComponent(phone||'Not provided')}%0AMessage: ${encodeURIComponent(msg||'No message')}`;
+  window.open(`https://wa.me/2349033355536?text=${text}`, '_blank');
+  closeModal();
+  showToast('Opening WhatsApp...', 'success');
+}
+
+// ─── CONTACT FORM ─────────────────────────────────────────────────────────────
+function submitEnquiry() {
+  const name = document.getElementById('cName').value.trim();
+  const phone = document.getElementById('cPhone').value.trim();
+  const email = document.getElementById('cEmail').value.trim();
+  const service = document.getElementById('cService').value;
+  const msg = document.getElementById('cMsg').value.trim();
+  if (!name || !msg) { showToast('Please fill in your name and message', 'info'); return; }
+  const text = `Hello Universal System Support!%0A%0ANew Enquiry from Website%0AName: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone||'N/A')}%0AEmail: ${encodeURIComponent(email||'N/A')}%0AService: ${encodeURIComponent(service||'General')}%0AMessage: ${encodeURIComponent(msg)}`;
+  window.open(`https://wa.me/2349033355536?text=${text}`, '_blank');
+  showToast('Redirecting to WhatsApp!', 'success');
+}
+
+// ─── NEWSLETTER ───────────────────────────────────────────────────────────────
+function subscribeNewsletter() {
+  const email = document.getElementById('nlEmail').value.trim();
+  if (!email || !email.includes('@')) { showToast('Please enter a valid email', 'info'); return; }
+  showToast(`✅ Subscribed: ${email}`, 'success');
+  document.getElementById('nlEmail').value = '';
+}
+
+// ─── AI CHAT (calls Anthropic API) ───────────────────────────────────────────
+let chatHistory = [];
+let chatOpen = false;
+
+function initChat() {
+  chatHistory = [];
+  addMsg('bot', 'Hi! 👋 I\'m the USS AI Assistant. I can answer questions about Universal System Support\'s services, pricing, and how to get started. How can I help you?');
+}
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chatBubble').classList.toggle('open', chatOpen);
+  if (chatOpen) document.getElementById('chatInput').focus();
+}
+
+function quickAsk(q) {
+  document.getElementById('chatInput').value = q;
+  sendChat();
+}
+
+async function sendChat() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  addMsg('user', text);
+  chatHistory.push({ role: 'user', content: text });
+  const typingId = addTyping();
+
+  const USS_SYSTEM = `You are the AI customer support assistant for "Universal System Support" (USS) — a digital services business run by a Digital Entrepreneur, Business Analyst, and No-Code Programmer in Nigeria.
+
+Key info:
+- Services: Business Analysis & Strategy (from ₦50,000), No-Code App Development (from ₦80,000), Process Automation (from ₦40,000), Digital Product Creation (from ₦35,000), CRM & Database Setup (from ₦45,000), Website/Landing Page (from ₦60,000)
+- Packages: Starter (₦75,000), Growth (₦180,000), Enterprise (₦350,000)
+- WhatsApp: +2349033355536
+- Location: Nigeria, remote worldwide
+- Tools used: Bubble, Notion, Zapier, Make.com, Airtable, Webflow, Glide, Power BI
+- Response time: within 2 hours
+- Payment: 50% deposit, 50% on delivery; instalments available
+
+Be helpful, friendly, and professional. Keep responses concise (2-4 sentences max). If asked about ordering or complex queries, direct them to WhatsApp: +2349033355536. Always use Nigerian Naira (₦) for prices.`;
+
+  // Method 1: Direct fetch with required browser header
+  const tryFetch = async () => {
+    const r = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 500,
+        system: USS_SYSTEM,
+        messages: chatHistory
+      })
+    });
+    if (!r.ok) throw new Error('status ' + r.status);
+    const d = await r.json();
+    return d.content?.find(b => b.type === 'text')?.text;
+  };
+
+  // Method 2: Expanded smart fallback covering all conversation types
+  const smartReply = (q) => {
+    const t = q.toLowerCase().trim();
+
+    // Greetings & small talk
+    if (t.match(/^(hi|hello|hey|good morning|good afternoon|good evening|howdy|sup|what'?s up|yo)\b/))
+      return "Hello! 👋 Welcome to Universal System Support! I'm your AI assistant. Whether you need help with business analysis, automation, no-code apps, or digital strategy — we've got you covered. What can I help you with today?";
+    if (t.match(/how are you|how are u|how r u|you good|you okay/))
+      return "I'm doing great, thank you for asking! 😊 I'm here and ready to help you with anything about Universal System Support — our services, pricing, or how we can grow your business. What's on your mind?";
+    if (t.match(/what('?s| is) your name|who are you|what are you/))
+      return "I'm the USS AI Assistant — the virtual support agent for Universal System Support! I'm here to answer your questions about our services, pricing, packages, and how we can help your business thrive. 🤖";
+    if (t.match(/thank(s| you)|appreciate|great|awesome|perfect|wonderful|nice/))
+      return "You're very welcome! 😊 It's always a pleasure helping. Is there anything else you'd like to know about our services or packages?";
+    if (t.match(/bye|goodbye|see you|take care|later/))
+      return "Goodbye! 👋 It was great chatting with you. Don't hesitate to reach out anytime — we're always here. You can also chat with us on WhatsApp: +2349033355536 🚀";
+    if (t.match(/ok|okay|alright|got it|i see|understood|cool|nice one/))
+      return "Great! 😊 Feel free to ask anything else — I'm here to help. You can also reach us directly on WhatsApp: +2349033355536 for faster support.";
+
+    // Business & services
+    if (t.match(/price|cost|how much|charge|fee|rate|afford/))
+      return "Our individual services start from ₦35,000 and our packages are: 📦 Starter – ₦75,000 | 📈 Growth – ₦180,000 | 🏢 Enterprise – ₦350,000. All are one-time payments with instalment options available. Which interests you?";
+    if (t.match(/package|starter|growth|enterprise|bundle|plan/))
+      return "We have 3 packages: 🟢 Starter (₦75,000) — great for new businesses. 🔵 Growth (₦180,000) — our most popular, perfect for scaling. 🟣 Enterprise (₦350,000) — full digital transformation. Which stage is your business at?";
+    if (t.match(/service|offer|what do you do|what can you|speciali/))
+      return "We offer 6 core services: 📊 Business Analysis, 🏗️ No-Code App Development, ⚙️ Process Automation, 📦 Digital Products, 🗃️ CRM Setup, and 🌐 Websites/Landing Pages. Which area interests you most?";
+    if (t.match(/automat|workflow|zapier|make\.com|integrat/))
+      return "Our Process Automation service (from ₦40,000) uses tools like Zapier, Make.com, and more to automate repetitive tasks — saving you hours every week. Would you like to know more?";
+    if (t.match(/app|no.?code|bubble|glide|webflow|build|develop/))
+      return "Our No-Code App Development (from ₦80,000) delivers full web or mobile apps using Bubble, Glide, Webflow and more — at a fraction of traditional dev costs. Fast, powerful, and easy to manage.";
+    if (t.match(/website|landing page|web design|page/))
+      return "We build high-converting websites and landing pages from ₦60,000 — designed for service businesses and digital entrepreneurs like you. Fully mobile-responsive and professionally designed! 🌐";
+    if (t.match(/crm|database|airtable|notion|manage client/))
+      return "Our CRM & Database Setup (from ₦45,000) uses Airtable, Notion, or custom no-code tools to build you a powerful client management system. Stay organised and never lose a lead again! 🗃️";
+    if (t.match(/digital product|ebook|template|course|info.?product/))
+      return "We help you package your expertise into sellable digital products — templates, e-books, mini-courses and more, starting from ₦35,000. It's one of the fastest ways to create passive income! 📦";
+    if (t.match(/business anal|strategy|consult|roadmap|process/))
+      return "Our Business Analysis & Strategy service (from ₦50,000) gives you a clear digital transformation roadmap — identifying gaps and opportunities in your current processes. A great starting point!";
+
+    // About & trust
+    if (t.match(/who is|about you|about uss|universal system|tell me about/))
+      return "Universal System Support is a digital-entrepreneurship and business-consulting firm helping businesses drive visibility, sales growth, and customer retention through smart no-code systems and strategy. 🚀 Based in Nigeria, serving clients worldwide.";
+    if (t.match(/trust|legit|real|genuine|scam|proof|review|testimonial/))
+      return "Great question! We have 150+ happy clients across Nigeria with a 98% satisfaction rate. You can scroll up to read real client testimonials on this page. You can also check our LinkedIn for professional background. We always do 50% upfront so the risk is minimal! ✅";
+    if (t.match(/experience|years|background|qualification|expert/))
+      return "We have 5+ years in the digital space, 150+ projects delivered, and expertise in 30+ no-code tools. Our founder is a Digital Entrepreneur, Business Analyst, and No-Code Programmer with hands-on industry experience. 💼";
+
+    // Process & logistics
+    if (t.match(/how.*work|process|step|procedure|start.*work|next step/))
+      return "Here's how we work: 1️⃣ You reach out via WhatsApp or the enquiry form. 2️⃣ We have a discovery call to understand your needs. 3️⃣ We agree on scope & timeline. 4️⃣ 50% deposit to begin. 5️⃣ We build & deliver. 6️⃣ Final payment + handover with training!";
+    if (t.match(/time|how long|deliver|turnaround|duration|when/))
+      return "⏱️ Timelines: Simple automations = 3–7 days. Apps & websites = 1–3 weeks. Full packages = 2–6 weeks. We always agree on a timeline before starting, and we don't disappear after delivery!";
+    if (t.match(/pay|payment|instalment|deposit|transfer|bank|naira/))
+      return "We accept 50% deposit upfront and 50% on delivery. Instalment plans are available for larger packages. Payment is via bank transfer. We're flexible and always put the work in before final payment. 💳";
+    if (t.match(/support|after.*deliver|maintain|update|post.*project/))
+      return "We don't disappear after delivery! Every package includes a dedicated support period — Starter (30 days), Growth (60 days), Enterprise (90 days). We also offer ongoing maintenance plans. 🔧";
+    if (t.match(/contact|reach|whatsapp|call|phone|email|message/))
+      return "You can reach us on: 📱 WhatsApp: +2349033355536 (fastest — reply within 2 hours!) or fill out the enquiry form on this page. We're Nigeria-based but work with clients worldwide. 🌍";
+    if (t.match(/location|where|based|country|nigeria|remote/))
+      return "We're based in Nigeria but work with clients remotely across Africa and worldwide. All our services are deliverable 100% online. 🌍";
+
+    // Default — helpful but not just WhatsApp redirect
+    return "That's a great question! 😊 I'm best equipped to answer questions about our services, pricing, process, and how we help businesses grow digitally. Could you tell me a bit more about what you're looking for? Or feel free to ask about any specific service!";
+  };
+
+  try {
+    const reply = await tryFetch();
+    removeTyping(typingId);
+    if (reply) {
+      chatHistory.push({ role: 'assistant', content: reply });
+      addMsg('bot', reply);
+    } else {
+      throw new Error('empty');
+    }
+  } catch (err) {
+    removeTyping(typingId);
+    // Use smart rule-based fallback instead of generic error
+    const fallback = smartReply(text);
+    chatHistory.push({ role: 'assistant', content: fallback });
+    addMsg('bot', fallback);
+  }
+}
+
+function addMsg(role, text) {
+  const msgs = document.getElementById('chatMsgs');
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+  div.textContent = text;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+function addTyping() {
+  const msgs = document.getElementById('chatMsgs');
+  const id = 'typing-' + Date.now();
+  const div = document.createElement('div');
+  div.className = 'msg bot typing';
+  div.id = id;
+  div.innerHTML = '<div class="dots"><span></span><span></span><span></span></div>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return id;
+}
+function removeTyping(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+}
+
+// ─── MOBILE NAV ───────────────────────────────────────────────────────────────
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// ─── TOAST ────────────────────────────────────────────────────────────────────
+function showToast(msg, type = 'info') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type} show`;
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ─── SCROLL REVEAL ────────────────────────────────────────────────────────────
+function initReveal() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+// close modal on overlay click
+document.getElementById('enquiryModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+</script>
+</body>
+</html>
