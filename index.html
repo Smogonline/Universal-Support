@@ -1211,15 +1211,406 @@
     .modal { padding: 30px 22px; }
     .ai-chat-bubble { width: calc(100vw - 32px); right: 16px; }
   }
+  /* EDUPORTAL ANNOUNCEMENT BANNER */
+  .edu-ann {
+    background: linear-gradient(90deg, #0a1f0a, #0d2e10, #0a1f0a);
+    border-bottom: 1px solid rgba(34,197,94,0.25);
+    padding: 11px 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #bbf7d0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 100;
+  }
+  .edu-ann .edu-badge {
+    background: linear-gradient(90deg, #16a34a, #22c55e);
+    color: #fff;
+    font-weight: 800;
+    font-size: 11px;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-family: var(--font-head);
+    letter-spacing: 1px;
+    animation: pulse 2s infinite;
+  }
+  .edu-ann .edu-discount {
+    background: rgba(34,197,94,0.15);
+    border: 1px solid rgba(34,197,94,0.3);
+    color: #4ade80;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-family: var(--font-head);
+  }
+  .edu-ann a {
+    color: #4ade80;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(74,222,128,.4);
+    transition: border-color .2s;
+  }
+  .edu-ann a:hover { border-color: #4ade80; }
+
+  /* EDUPORTAL SECTION */
+  #eduportal {
+    background: linear-gradient(180deg, #050d0a 0%, #071510 40%, #050d0a 100%);
+    padding: 90px 5%;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid rgba(34,197,94,0.1);
+    border-bottom: 1px solid rgba(34,197,94,0.1);
+  }
+  #eduportal::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 0%, rgba(34,197,94,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 80% 80%, rgba(16,163,74,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  #eduportal::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(34,197,94,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34,197,94,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+    pointer-events: none;
+  }
+  .edu-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 70px;
+  }
+  .edu-left {}
+  .edu-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(34,197,94,0.08);
+    border: 1px solid rgba(34,197,94,0.2);
+    border-radius: 30px;
+    padding: 7px 18px;
+    font-size: 12px;
+    color: #4ade80;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: var(--font-head);
+    margin-bottom: 22px;
+  }
+  .edu-eyebrow::before { content: '●'; font-size: 8px; animation: pulse 2s infinite; }
+  .edu-title {
+    font-family: var(--font-head);
+    font-size: clamp(30px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -1.5px;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+  .edu-title .brand {
+    background: linear-gradient(90deg, #4ade80, #22c55e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .edu-subtitle {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(74,222,128,.6);
+    font-family: var(--font-head);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .edu-desc {
+    font-size: 16px;
+    color: #94a3b8;
+    line-height: 1.8;
+    margin-bottom: 28px;
+  }
+  .edu-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .edu-highlight {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #cbd5e1;
+  }
+  .edu-highlight::before {
+    content: '✓';
+    width: 22px; height: 22px;
+    background: rgba(34,197,94,0.12);
+    border: 1px solid rgba(34,197,94,0.3);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #4ade80;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .edu-btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .btn-edu-primary {
+    background: linear-gradient(135deg, #16a34a, #22c55e);
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: var(--font-head);
+    cursor: pointer;
+    transition: all .2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-edu-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(34,197,94,.3); filter: brightness(1.1); }
+  .btn-edu-outline {
+    background: rgba(34,197,94,0.06);
+    color: #4ade80;
+    border: 1.5px solid rgba(34,197,94,0.3);
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: var(--font-head);
+    cursor: pointer;
+    transition: all .2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-edu-outline:hover { background: rgba(34,197,94,0.12); border-color: #4ade80; transform: translateY(-2px); }
+  /* Right side — visual card */
+  .edu-right {}
+  .edu-mockup {
+    background: rgba(10,28,14,0.9);
+    border: 1px solid rgba(34,197,94,0.2);
+    border-radius: 20px;
+    padding: 28px;
+    position: relative;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 30px 80px rgba(0,0,0,.5), 0 0 60px rgba(34,197,94,0.05);
+  }
+  .edu-mockup-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(34,197,94,0.1);
+  }
+  .edu-mockup-dots { display: flex; gap: 6px; }
+  .edu-mockup-dots span {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .edu-mockup-dots span:nth-child(1) { background: #ef4444; }
+  .edu-mockup-dots span:nth-child(2) { background: #f59e0b; }
+  .edu-mockup-dots span:nth-child(3) { background: #22c55e; }
+  .edu-mockup-title { font-family: var(--font-head); font-size: 13px; color: rgba(74,222,128,.7); font-weight: 600; flex: 1; text-align: center; }
+  .edu-stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .edu-stat-card {
+    background: rgba(34,197,94,0.05);
+    border: 1px solid rgba(34,197,94,0.1);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .edu-stat-card .num { font-family: var(--font-head); font-size: 24px; font-weight: 800; color: #4ade80; }
+  .edu-stat-card .lbl { font-size: 11px; color: #64748b; margin-top: 3px; }
+  .edu-platform-list { display: flex; flex-direction: column; gap: 8px; }
+  .edu-platform {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: rgba(34,197,94,0.04);
+    border: 1px solid rgba(34,197,94,0.08);
+    border-radius: 10px;
+    transition: all .2s;
+  }
+  .edu-platform:hover { border-color: rgba(34,197,94,0.2); background: rgba(34,197,94,0.08); }
+  .edu-platform-icon {
+    width: 36px; height: 36px;
+    background: rgba(34,197,94,0.1);
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .edu-platform-info { flex: 1; }
+  .edu-platform-info strong { display: block; font-family: var(--font-head); font-size: 13px; font-weight: 700; color: var(--white); }
+  .edu-platform-info span { font-size: 11px; color: #64748b; }
+  .edu-platform-price { font-family: var(--font-head); font-size: 13px; font-weight: 800; color: #4ade80; }
+
+  /* EduPortal pricing cards */
+  .edu-pricing {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 60px;
+  }
+  .edu-pricing-head { text-align: center; margin-bottom: 36px; }
+  .edu-pricing-head h3 { font-family: var(--font-head); font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+  .edu-pricing-head p { font-size: 15px; color: #64748b; }
+  .edu-pricing-head .urgency {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(239,68,68,0.08);
+    border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 13px;
+    color: #f87171;
+    font-weight: 600;
+    font-family: var(--font-head);
+    margin-top: 12px;
+  }
+  .edu-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .edu-card {
+    background: rgba(10,28,14,0.8);
+    border: 1px solid rgba(34,197,94,0.12);
+    border-radius: 18px;
+    padding: 28px 24px;
+    transition: all .3s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .edu-card:hover { border-color: rgba(34,197,94,0.3); transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,.4); }
+  .edu-card.full-pkg {
+    border-color: rgba(34,197,94,0.35);
+    background: linear-gradient(145deg, rgba(34,197,94,0.06), rgba(10,28,14,0.95));
+    box-shadow: 0 0 40px rgba(34,197,94,0.07);
+  }
+  .edu-card-badge {
+    position: absolute;
+    top: -12px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(90deg, #16a34a, #22c55e);
+    color: #fff;
+    font-size: 11px; font-weight: 800;
+    padding: 3px 16px; border-radius: 20px;
+    font-family: var(--font-head); letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  .edu-card-icon { font-size: 30px; margin-bottom: 14px; }
+  .edu-card h4 { font-family: var(--font-head); font-size: 17px; font-weight: 800; margin-bottom: 6px; color: var(--white); }
+  .edu-card .edu-card-desc { font-size: 13px; color: #64748b; line-height: 1.6; margin-bottom: 18px; }
+  .edu-price-wrap { margin-bottom: 18px; }
+  .edu-orig-price { font-size: 13px; color: #64748b; text-decoration: line-through; margin-bottom: 2px; }
+  .edu-disc-price { font-family: var(--font-head); font-size: 28px; font-weight: 800; color: #4ade80; line-height: 1; }
+  .edu-disc-badge {
+    display: inline-block;
+    background: rgba(239,68,68,0.12);
+    border: 1px solid rgba(239,68,68,0.25);
+    color: #f87171;
+    font-size: 11px; font-weight: 800;
+    padding: 2px 8px; border-radius: 20px;
+    font-family: var(--font-head);
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .edu-card-features { list-style: none; margin-bottom: 22px; flex: 1; }
+  .edu-card-features li {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 13px; color: #94a3b8; padding: 6px 0;
+    border-bottom: 1px solid rgba(34,197,94,0.06);
+  }
+  .edu-card-features li:last-child { border-bottom: none; }
+  .edu-card-features li::before { content: '✓'; color: #4ade80; font-weight: 800; font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+  .btn-edu-enquire {
+    width: 100%;
+    background: rgba(34,197,94,0.08);
+    border: 1.5px solid rgba(34,197,94,0.25);
+    color: #4ade80;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 14px; font-weight: 700;
+    font-family: var(--font-head);
+    cursor: pointer;
+    transition: all .2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    text-decoration: none;
+  }
+  .btn-edu-enquire:hover { background: rgba(34,197,94,0.15); border-color: #4ade80; transform: translateY(-1px); }
+  .btn-edu-enquire.solid { background: linear-gradient(135deg,#16a34a,#22c55e); color: #fff; border: none; }
+  .btn-edu-enquire.solid:hover { filter: brightness(1.1); }
+  .edu-demo-strip {
+    position: relative;
+    z-index: 2;
+    background: rgba(34,197,94,0.04);
+    border: 1px solid rgba(34,197,94,0.15);
+    border-radius: 16px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .edu-demo-text { flex: 1; min-width: 200px; }
+  .edu-demo-text h4 { font-family: var(--font-head); font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+  .edu-demo-text p { font-size: 14px; color: #64748b; line-height: 1.6; }
+  .edu-demo-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    .edu-hero { grid-template-columns: 1fr; gap: 40px; }
+    .edu-right { order: -1; }
+  }
+  @media (max-width: 600px) {
+    .edu-btns { flex-direction: column; }
+    .edu-demo-strip { flex-direction: column; align-items: flex-start; }
+  }
 </style>
 </head>
 <body>
 
-<!-- ANNOUNCEMENT BANNER -->
-<div class="ann-bar">
+<!-- ANNOUNCEMENT BANNER — rotates between USS and EduPortal -->
+<div class="ann-bar" id="annBanner">
   <span class="badge">🚀 NOW LIVE</span>
   Get your business automated — Free consultation for new clients!
   <a href="#contact" class="cta-link">Book a free call →</a>
+</div>
+<div class="edu-ann" id="eduBanner" style="display:none;">
+  <span class="edu-badge">🎓 NEW PRODUCT</span>
+  <strong>EduPortal</strong> — Enterprise School Management System now available!
+  <span class="edu-discount">50% OFF · First 10 Schools Only</span>
+  <a href="#eduportal">See plans & pricing →</a>
 </div>
 
 <!-- NAVBAR -->
@@ -1231,6 +1622,7 @@
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#packages">Packages</a></li>
+    <li><a href="#eduportal" style="color:#4ade80;">EduPortal 🎓</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#testimonials">Reviews</a></li>
     <li><a href="#faq">FAQ</a></li>
@@ -1256,6 +1648,7 @@
   <span class="mobile-menu-close" onclick="toggleMobileMenu()">✕</span>
   <a href="#services" onclick="toggleMobileMenu()">Services</a>
   <a href="#packages" onclick="toggleMobileMenu()">Packages</a>
+  <a href="#eduportal" onclick="toggleMobileMenu()" style="color:#4ade80;">EduPortal 🎓</a>
   <a href="#about" onclick="toggleMobileMenu()">About</a>
   <a href="#testimonials" onclick="toggleMobileMenu()">Reviews</a>
   <a href="#faq" onclick="toggleMobileMenu()">FAQ</a>
@@ -1352,6 +1745,180 @@
     <div class="feature-item"><div class="feature-icon">🔒</div><div><h4>Confidential & Secure</h4><p>Your business data and strategies are handled with full discretion.</p></div></div>
     <div class="feature-item"><div class="feature-icon">♾️</div><div><h4>Ongoing Support</h4><p>I don't disappear after delivery — post-project support always available.</p></div></div>
   </div>
+</section>
+
+<!-- EDUPORTAL SECTION -->
+<section id="eduportal">
+
+  <!-- HERO BLOCK -->
+  <div class="edu-hero reveal">
+    <div class="edu-left">
+      <div class="edu-eyebrow">New Product · Now Available</div>
+      <div class="edu-subtitle">Enterprise School Management System</div>
+      <h2 class="edu-title">Introducing<br/><span class="brand">EduPortal</span></h2>
+      <p class="edu-desc">A comprehensive, enterprise-grade platform purpose-built for educational institutions of all sizes — from nursery schools to universities. Digitise and streamline every aspect of school administration with one powerful system.</p>
+      <div class="edu-highlights">
+        <div class="edu-highlight">Student enrollment, grade tracking & attendance</div>
+        <div class="edu-highlight">Staff & teacher management with role-based access</div>
+        <div class="edu-highlight">Parent communication & student engagement tools</div>
+        <div class="edu-highlight">Total control — no third-party restrictions</div>
+        <div class="edu-highlight">Works for nursery, primary, secondary & universities</div>
+      </div>
+      <div class="edu-btns">
+        <a href="https://universalskills-school.vercel.app/" class="btn-edu-primary" target="_blank">🎓 View Live Demo</a>
+        <a href="https://wa.me/2349033355536?text=Hi%20USS%2C%20I%27m%20interested%20in%20EduPortal%20for%20my%20school.%20Please%20share%20more%20details." class="btn-edu-outline" target="_blank">Request Demo Account</a>
+      </div>
+    </div>
+    <div class="edu-right">
+      <div class="edu-mockup">
+        <div class="edu-mockup-header">
+          <div class="edu-mockup-dots"><span></span><span></span><span></span></div>
+          <div class="edu-mockup-title">EduPortal Admin Dashboard</div>
+        </div>
+        <div class="edu-stat-grid">
+          <div class="edu-stat-card"><div class="num">500+</div><div class="lbl">Students Managed</div></div>
+          <div class="edu-stat-card"><div class="num">100%</div><div class="lbl">Cloud-Based</div></div>
+          <div class="edu-stat-card"><div class="num">3</div><div class="lbl">Platforms Included</div></div>
+          <div class="edu-stat-card"><div class="num">24/7</div><div class="lbl">System Uptime</div></div>
+        </div>
+        <div class="edu-platform-list">
+          <div class="edu-platform">
+            <div class="edu-platform-icon">🌐</div>
+            <div class="edu-platform-info">
+              <strong>Public Website</strong>
+              <span>School portal for prospective students & parents</span>
+            </div>
+            <div class="edu-platform-price">From ₦137,500</div>
+          </div>
+          <div class="edu-platform">
+            <div class="edu-platform-icon">🖥️</div>
+            <div class="edu-platform-info">
+              <strong>Admin Dashboard</strong>
+              <span>Role-based portal for staff, teachers & admin</span>
+            </div>
+            <div class="edu-platform-price">From ₦375,000</div>
+          </div>
+          <div class="edu-platform">
+            <div class="edu-platform-icon">📱</div>
+            <div class="edu-platform-info">
+              <strong>Mobile Application</strong>
+              <span>On-the-go access for staff, admins & parents</span>
+            </div>
+            <div class="edu-platform-price">+₦100,000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICING CARDS -->
+  <div class="edu-pricing reveal">
+    <div class="edu-pricing-head">
+      <div class="section-tag" style="color:#4ade80;">EduPortal Pricing</div>
+      <h3>Choose Your Plan</h3>
+      <p>One-time payment per school. Additional customisation billed separately.</p>
+      <div class="urgency">🔥 50% Early-Bird Discount — Only 10 schools · Price increases after slots are filled</div>
+    </div>
+    <div class="edu-cards">
+
+      <!-- Website Only -->
+      <div class="edu-card reveal">
+        <div class="edu-card-icon">🌐</div>
+        <h4>Public Website</h4>
+        <p class="edu-card-desc">A professional school website with a dedicated admission/enquiry portal for prospective students and parents.</p>
+        <div class="edu-price-wrap">
+          <div class="edu-orig-price">₦275,000</div>
+          <div class="edu-disc-price">₦137,500 <span class="edu-disc-badge">50% OFF</span></div>
+        </div>
+        <ul class="edu-card-features">
+          <li>Custom-branded school website</li>
+          <li>Student/parent enquiry portal</li>
+          <li>Admissions information pages</li>
+          <li>News & events section</li>
+          <li>Mobile responsive design</li>
+          <li>Basic SEO setup</li>
+        </ul>
+        <a href="https://wa.me/2349033355536?text=Hi%20USS%2C%20I%27m%20interested%20in%20the%20EduPortal%20Public%20Website%20plan%20at%20%E2%82%A6137%2C500%20for%20my%20school." class="btn-edu-enquire" target="_blank">Enquire on WhatsApp</a>
+      </div>
+
+      <!-- Admin Dashboard -->
+      <div class="edu-card reveal">
+        <div class="edu-card-icon">🖥️</div>
+        <h4>Admin Dashboard</h4>
+        <p class="edu-card-desc">Secure, role-based administration portal for managing students, staff, grades, attendance, and communications.</p>
+        <div class="edu-price-wrap">
+          <div class="edu-orig-price">₦750,000</div>
+          <div class="edu-disc-price">₦375,000 <span class="edu-disc-badge">50% OFF</span></div>
+        </div>
+        <ul class="edu-card-features">
+          <li>Student enrollment & records</li>
+          <li>Grade & result management</li>
+          <li>Attendance tracking system</li>
+          <li>Staff & teacher management</li>
+          <li>Role-based access control</li>
+          <li>Parent communication tools</li>
+          <li>Class & timetable management</li>
+        </ul>
+        <a href="https://wa.me/2349033355536?text=Hi%20USS%2C%20I%27m%20interested%20in%20the%20EduPortal%20Admin%20Dashboard%20plan%20at%20%E2%82%A6375%2C000%20for%20my%20school." class="btn-edu-enquire" target="_blank">Enquire on WhatsApp</a>
+      </div>
+
+      <!-- Full Package -->
+      <div class="edu-card full-pkg reveal">
+        <div class="edu-card-badge">⭐ BEST VALUE</div>
+        <div class="edu-card-icon">🏫</div>
+        <h4>Full Package</h4>
+        <p class="edu-card-desc">Website + Admin Dashboard bundled together — everything your school needs to go fully digital, at a combined discount.</p>
+        <div class="edu-price-wrap">
+          <div class="edu-orig-price">₦1,025,000</div>
+          <div class="edu-disc-price">₦512,500 <span class="edu-disc-badge">50% OFF</span></div>
+        </div>
+        <ul class="edu-card-features">
+          <li>Everything in Website plan</li>
+          <li>Everything in Admin Dashboard plan</li>
+          <li>Seamless integration between both</li>
+          <li>Unified school branding</li>
+          <li>Priority setup & onboarding</li>
+          <li>Staff training session included</li>
+          <li>30-day post-delivery support</li>
+        </ul>
+        <a href="https://wa.me/2349033355536?text=Hi%20USS%2C%20I%27m%20interested%20in%20the%20EduPortal%20Full%20Package%20at%20%E2%82%A6512%2C500%20for%20my%20school." class="btn-edu-enquire solid" target="_blank">Enquire on WhatsApp</a>
+      </div>
+
+      <!-- Mobile App Add-on -->
+      <div class="edu-card reveal">
+        <div class="edu-card-icon">📱</div>
+        <h4>Mobile App Add-on</h4>
+        <p class="edu-card-desc">Add a cross-platform mobile application to any plan — giving staff, administrators, and parents on-the-go access to everything.</p>
+        <div class="edu-price-wrap">
+          <div class="edu-orig-price">₦200,000</div>
+          <div class="edu-disc-price">₦100,000 <span class="edu-disc-badge">50% OFF</span></div>
+        </div>
+        <ul class="edu-card-features">
+          <li>iOS & Android compatible</li>
+          <li>Real-time push notifications</li>
+          <li>Attendance marking on mobile</li>
+          <li>Grade & result viewing</li>
+          <li>Parent-school messaging</li>
+          <li>Add-on to any EduPortal plan</li>
+        </ul>
+        <a href="https://wa.me/2349033355536?text=Hi%20USS%2C%20I%27m%20interested%20in%20adding%20the%20EduPortal%20Mobile%20App%20to%20my%20plan." class="btn-edu-enquire" target="_blank">Enquire on WhatsApp</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DEMO STRIP -->
+  <div class="edu-demo-strip reveal">
+    <div class="edu-demo-text">
+      <h4>🎓 Want to experience EduPortal before committing?</h4>
+      <p>View our live demo school website, or contact us to request a hands-on demo teacher/class management account — test enrollment, attendance, grade management and more yourself.</p>
+    </div>
+    <div class="edu-demo-btns">
+      <a href="https://universalskills-school.vercel.app/" class="btn-edu-primary" target="_blank">View Live Demo</a>
+      <a href="https://wa.me/2349033355536?text=Hi%20USS%2C%20please%20send%20me%20a%20demo%20account%20to%20test%20EduPortal." class="btn-edu-outline" target="_blank">Request Demo Account</a>
+    </div>
+  </div>
+
 </section>
 
 <!-- PACKAGES -->
@@ -1502,6 +2069,7 @@
         <li><a href="#services">Process Automation</a></li>
         <li><a href="#services">Digital Products</a></li>
         <li><a href="#services">CRM Setup</a></li>
+        <li><a href="#eduportal" style="color:#4ade80;">🎓 EduPortal</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -1609,6 +2177,23 @@
 <div class="toast" id="toast"></div>
 
 <script>
+// ─── BANNER ROTATION ─────────────────────────────────────────────────────────
+function initBannerRotation() {
+  const ann = document.getElementById('annBanner');
+  const edu = document.getElementById('eduBanner');
+  let showingEdu = false;
+  setInterval(() => {
+    if (showingEdu) {
+      edu.style.display = 'none';
+      ann.style.display = 'flex';
+    } else {
+      ann.style.display = 'none';
+      edu.style.display = 'flex';
+    }
+    showingEdu = !showingEdu;
+  }, 5000);
+}
+
 // ─── DATA ───────────────────────────────────────────────────────────────────
 const SERVICES = [
   { id: 1, icon: '📊', title: 'Business Analysis & Strategy', desc: 'Deep-dive analysis of your business processes, identifying gaps and mapping out a digital transformation roadmap tailored to your goals.', price: '₦50,000', sub: 'Starting from' },
@@ -1646,6 +2231,7 @@ const FAQS = [
 
 // ─── RENDER ──────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  initBannerRotation();
   renderServices();
   renderPackages();
   renderTestimonials();
@@ -1870,6 +2456,10 @@ Key info:
 - Services: Business Analysis & Strategy (from ₦50,000), No-Code App Development (from ₦80,000), Process Automation (from ₦40,000), Digital Product Creation (from ₦35,000), CRM & Database Setup (from ₦45,000), Website/Landing Page (from ₦60,000)
 - Packages: Starter (₦75,000), Growth (₦180,000), Enterprise (₦350,000), Corporate (₦1,100,000)
 - Corporate package includes: Executive business analysis, full digital transformation roadmap, custom multi-module no-code platform, enterprise CRM, up to 6 landing pages, unlimited automations, full digital product suite, staff training, dedicated account manager, 180-day priority support, bi-weekly strategy calls, monthly analytics reporting, 3-month maintenance plan
+- NEW PRODUCT — EduPortal: Enterprise School Management System for all school types (nursery to university). One-time payment per school. Currently 50% early-bird discount for first 10 schools only.
+- EduPortal plans: Public Website (₦137,500, was ₦275,000) | Admin Dashboard (₦375,000, was ₦750,000) | Full Package Website+Dashboard (₦512,500, was ₦1,025,000) | Mobile App add-on (₦100,000, was ₦200,000)
+- EduPortal features: student enrollment, grade tracking, attendance, staff management, role-based access, parent communication, class management, timetable. Three platforms: Public Website, Admin Dashboard, Mobile App.
+- EduPortal demo: https://universalskills-school.vercel.app/ — clients can also request a demo teacher/class account to test enrollment/attendance/grade/class management features via WhatsApp.
 - WhatsApp: +2349033355536
 - Location: Nigeria, remote worldwide
 - Tools used: Bubble, Notion, Zapier, Make.com, Airtable, Webflow, Glide, Power BI
@@ -1917,13 +2507,23 @@ Be helpful, friendly, and professional. Keep responses concise (2-4 sentences ma
     if (t.match(/ok|okay|alright|got it|i see|understood|cool|nice one/))
       return "Great! 😊 Feel free to ask anything else — I'm here to help. You can also reach us directly on WhatsApp: +2349033355536 for faster support.";
 
+    // EduPortal
+    if (t.match(/eduportal|edu portal|school (system|management|software|app|platform)|school management|school admin|student management|school portal/))
+      return "EduPortal is our enterprise School Management System! 🎓 It covers student enrollment, grades, attendance, staff management, and parent communication. Plans: 🌐 Website (₦137,500) | 🖥️ Admin Dashboard (₦375,000) | 🏫 Full Package (₦512,500) | 📱 Mobile App add-on (₦100,000). Currently 50% OFF for the first 10 schools! Want a demo?";
+    if (t.match(/school|institution|academy|university|college|nursery|primary|secondary|education/))
+      return "For schools and educational institutions, we have EduPortal — a complete School Management System! 🎓 It handles enrollment, grades, attendance, staff, and parent communication across a Website, Admin Dashboard, and Mobile App. There's currently a 50% early-bird discount for the first 10 schools. Shall I share pricing details?";
+    if (t.match(/eduportal.*price|eduportal.*cost|school.*price|school.*cost|how much.*school|how much.*edu/))
+      return "EduPortal pricing (50% OFF for first 10 schools): 🌐 Public Website – ₦137,500 | 🖥️ Admin Dashboard – ₦375,000 | 🏫 Full Package (both) – ₦512,500 | 📱 Mobile App add-on – ₦100,000. All one-time payments. Price goes up after discount slots are filled — act fast!";
+    if (t.match(/demo|test|try|preview|sample/))
+      return "You can view our live EduPortal demo at universalskills-school.vercel.app 🎓 You can also contact us on WhatsApp (+2349033355536) to request a hands-on demo teacher/class account to test enrollment, attendance, grades, and class management yourself!";
+
     // Business & services
     if (t.match(/price|cost|how much|charge|fee|rate|afford/))
       return "Our individual services start from ₦35,000 and our packages are: 📦 Starter – ₦75,000 | 📈 Growth – ₦180,000 | 🏢 Enterprise – ₦350,000 | 🏛️ Corporate – ₦1,100,000. All are one-time payments with instalment options available. Which interests you?";
     if (t.match(/package|starter|growth|enterprise|corporate|bundle|plan/))
       return "We have 4 packages: 🟢 Starter (₦75,000) — for new businesses. 🔵 Growth (₦180,000) — most popular for scaling. 🟣 Enterprise (₦350,000) — full digital transformation. 🏛️ Corporate (₦1,100,000) — complete end-to-end digital infrastructure for established companies. Which fits your stage?";
     if (t.match(/service|offer|what do you do|what can you|speciali/))
-      return "We offer 6 core services: 📊 Business Analysis, 🏗️ No-Code App Development, ⚙️ Process Automation, 📦 Digital Products, 🗃️ CRM Setup, and 🌐 Websites/Landing Pages. Which area interests you most?";
+      return "We offer 6 core services: 📊 Business Analysis, 🏗️ No-Code App Development, ⚙️ Process Automation, 📦 Digital Products, 🗃️ CRM Setup, and 🌐 Websites/Landing Pages. We also have a ready-made product — 🎓 EduPortal, our School Management System. Which interests you?";
     if (t.match(/automat|workflow|zapier|make\.com|integrat/))
       return "Our Process Automation service (from ₦40,000) uses tools like Zapier, Make.com, and more to automate repetitive tasks — saving you hours every week. Would you like to know more?";
     if (t.match(/app|no.?code|bubble|glide|webflow|build|develop/))
