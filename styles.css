@@ -40,3 +40,15 @@ footer{border-top:1px solid var(--bd);padding:50px 0 24px;color:var(--mu);font-s
 footer h4{color:#fff;margin-bottom:10px}footer a{display:block;color:var(--mu);margin-bottom:6px}
 .eg{--cy:#4ade80;--bd:rgba(34,197,94,.2)}
 @media(max-width:800px){nav{display:none;position:absolute;top:66px;left:0;right:0;flex-direction:column;background:var(--bg);padding:12px 5%;border-bottom:1px solid var(--bd)}nav.open{display:flex}.burger{display:block}.split,.fg{grid-template-columns:1fr}}
+.hr{display:flex;gap:10px;align-items:center}
+.cartb{position:relative;background:rgba(0,212,255,.08);border:1px solid var(--bd);color:#fff;font-size:18px;width:42px;height:42px;border-radius:10px;cursor:pointer}
+.cartb b{display:none;position:absolute;top:-6px;right:-6px;background:var(--cy);color:#04101c;font-size:11px;width:19px;height:19px;border-radius:50%;align-items:center;justify-content:center}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:.3s;z-index:90}.ov.on{opacity:1;pointer-events:auto}
+.cart{position:fixed;top:0;right:0;bottom:0;width:min(380px,100%);background:var(--bg2);border-left:1px solid var(--bd);z-index:100;transform:translateX(100%);transition:transform .3s;display:flex;flex-direction:column}.cart.on{transform:none}
+.chd{display:flex;justify-content:space-between;align-items:center;padding:20px;border-bottom:1px solid var(--bd)}
+.cbody{flex:1;overflow-y:auto;padding:10px 20px}.ce{text-align:center;color:var(--mu);padding:60px 10px}
+.ci{display:flex;justify-content:space-between;gap:12px;padding:16px 0;border-bottom:1px solid var(--bd)}
+.cp{color:var(--cy);font-weight:700;margin:2px 0 8px}
+.cq{display:flex;align-items:center;gap:12px}.cq button{width:30px;height:30px;border-radius:8px;border:1px solid var(--bd);background:rgba(0,212,255,.08);color:var(--cy);font-size:18px;cursor:pointer}
+.cx{background:none;border:0;color:var(--mu);font-size:18px;cursor:pointer}
+.cfoot{padding:20px;border-top:1px solid var(--bd)}.ct{display:flex;justify-content:space-between;margin-bottom:14px;font-size:20px}.ct strong{color:var(--cy)}
